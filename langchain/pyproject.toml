@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langchain-x402bazaar"
+version = "0.1.0"
+description = "LangChain tool for x402 Bazaar — pre-trade token-verdict (SAFE/CAUTION/AVOID) for any Base token, paid per call over x402."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "x402 Bazaar", email = "sukrutkrdg@gmail.com" }]
+keywords = ["x402", "langchain", "base", "token-safety", "honeypot", "rug", "token-verdict", "ai-agents", "usdc"]
+dependencies = ["langchain-core>=0.3.0", "requests>=2.31.0", "pydantic>=2.0.0"]
+
+[project.optional-dependencies]
+pay = ["x402>=0.1.0", "eth-account>=0.11.0"]
+
+[project.urls]
+Homepage = "https://402.com.tr"
+Repository = "https://github.com/sukrutkrdg/x402-bazaar-plugins"
+
+[tool.hatch.build.targets.wheel]
+packages = ["langchain_x402bazaar"]

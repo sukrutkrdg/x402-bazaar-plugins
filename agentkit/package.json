@@ -1,0 +1,48 @@
+{
+  "name": "@x402bazaar/agentkit-action-provider",
+  "version": "0.1.0",
+  "description": "Coinbase AgentKit action provider for x402 Bazaar — pre-trade token-verdict (SAFE/CAUTION/AVOID) for any Base token, paid per call over x402.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc",
+    "smoke": "node test/smoke.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "x402", "agentkit", "coinbase", "base", "token-safety", "honeypot",
+    "rug-check", "token-verdict", "ai-agents", "usdc", "pre-trade"
+  ],
+  "homepage": "https://402.com.tr",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sukrutkrdg/x402-bazaar-plugins.git",
+    "directory": "agentkit"
+  },
+  "author": "x402 Bazaar <sukrutkrdg@gmail.com>",
+  "peerDependencies": {
+    "@coinbase/agentkit": ">=0.9.0",
+    "zod": "^3.22.0",
+    "@x402/fetch": "^2.0.0",
+    "@x402/core": "^2.0.0",
+    "@x402/evm": "^2.0.0",
+    "viem": "^2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@x402/fetch": { "optional": true },
+    "@x402/core": { "optional": true },
+    "@x402/evm": { "optional": true },
+    "viem": { "optional": true }
+  },
+  "devDependencies": {
+    "@coinbase/agentkit": "^0.10.4",
+    "typescript": "^5.6.0",
+    "zod": "^3.23.0"
+  }
+}
