@@ -6,3 +6,4 @@ build/
 dist/
 *.tgz
 .venv/
+.eliza-probe/
