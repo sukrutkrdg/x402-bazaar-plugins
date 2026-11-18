@@ -9,8 +9,9 @@ daily call.
 |---|---|---|
 | Coinbase AgentKit | [`x402-bazaar-agentkit`](./agentkit) | [`agentkit/`](./agentkit) |
 | LangChain (Python) | [`langchain-x402bazaar`](./langchain) | [`langchain/`](./langchain) |
+| CrewAI (Python) | [`crewai-x402bazaar`](./crewai) | [`crewai/`](./crewai) |
 
-More frameworks (ElizaOS, CrewAI) coming. Each tool works with **no wallet** by
+ElizaOS coming next. Each tool works with **no wallet** by
 default (1 free call/day per IP) and upgrades to paid x402 ($0.03 USDC on Base)
 when a funded wallet is configured.
 

@@ -18,6 +18,7 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'langchain-v') }}
     permissions:
       id-token: write # required for OIDC trusted publishing
     steps:
