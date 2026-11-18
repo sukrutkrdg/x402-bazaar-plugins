@@ -1,5 +1,5 @@
 {
-  "name": "@x402bazaar/agentkit-action-provider",
+  "name": "x402-bazaar-agentkit",
   "version": "0.1.0",
   "description": "Coinbase AgentKit action provider for x402 Bazaar — pre-trade token-verdict (SAFE/CAUTION/AVOID) for any Base token, paid per call over x402.",
   "license": "MIT",

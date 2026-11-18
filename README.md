@@ -7,7 +7,7 @@ daily call.
 
 | Framework | Package | Path |
 |---|---|---|
-| Coinbase AgentKit | [`@x402bazaar/agentkit-action-provider`](./agentkit) | [`agentkit/`](./agentkit) |
+| Coinbase AgentKit | [`x402-bazaar-agentkit`](./agentkit) | [`agentkit/`](./agentkit) |
 | LangChain (Python) | [`langchain-x402bazaar`](./langchain) | [`langchain/`](./langchain) |
 
 More frameworks (ElizaOS, CrewAI) coming. Each tool works with **no wallet** by
