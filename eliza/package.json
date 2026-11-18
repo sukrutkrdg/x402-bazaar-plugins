@@ -1,0 +1,38 @@
+{
+  "name": "plugin-x402-bazaar",
+  "version": "0.1.0",
+  "description": "ElizaOS plugin for x402 Bazaar — pre-trade token-verdict (SAFE/CAUTION/AVOID) for any Base token.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "elizaos", "eliza", "plugin", "x402", "base", "token-safety",
+    "token-verdict", "honeypot", "rug-check", "ai-agents"
+  ],
+  "homepage": "https://402.com.tr",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sukrutkrdg/x402-bazaar-plugins.git",
+    "directory": "eliza"
+  },
+  "author": "x402 Bazaar <sukrutkrdg@gmail.com>",
+  "peerDependencies": {
+    "@elizaos/core": ">=2.0.0"
+  },
+  "devDependencies": {
+    "@elizaos/core": "^2.0.5",
+    "typescript": "^5.6.0"
+  },
+  "agentConfig": {
+    "pluginType": "elizaos:plugin:1.0.0"
+  }
+}
