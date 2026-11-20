@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "langchain-x402bazaar"
-version = "0.1.0"
+version = "0.2.0"
 description = "LangChain tool for x402 Bazaar — pre-trade token-verdict (SAFE/CAUTION/AVOID) for any Base token, paid per call over x402."
 readme = "README.md"
 requires-python = ">=3.9"

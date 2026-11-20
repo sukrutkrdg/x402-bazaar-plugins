@@ -12,16 +12,28 @@ import requests
 from pydantic import BaseModel, Field
 from crewai.tools import BaseTool
 
-TOKEN_VERDICT_URL = "https://402.com.tr/api/x402/token-verdict"
+BASE_URL = "https://402.com.tr/api/x402"
+TOKEN_VERDICT_URL = f"{BASE_URL}/token-verdict"  # back-compat
 BASE_CHAIN = "eip155:8453"
 USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+
+# token-verdict endpoint + token param per chain. All settle in USDC on Base.
+CHAIN_ENDPOINTS = {
+    "base": ("token-verdict", "address"),
+    "arbitrum": ("arb-token-verdict", "address"),
+    "solana": ("sol-token-verdict", "mint"),
+}
 
 
 class TokenVerdictInput(BaseModel):
     address: str = Field(
         ...,
-        pattern=r"^0x[a-fA-F0-9]{40}$",
-        description="Base ERC-20 token address (0x + 40 hex chars).",
+        pattern=r"^(0x[a-fA-F0-9]{40}|[1-9A-HJ-NP-Za-km-z]{32,44})$",
+        description="A Base/Arbitrum 0x… token address or a Solana base58 mint.",
+    )
+    chain: Optional[str] = Field(
+        None,
+        description="Which chain: 'base' (default), 'arbitrum', or 'solana'. A base58 token implies solana.",
     )
     amount_usd: Optional[float] = Field(
         None,
@@ -56,16 +68,21 @@ def _paid_session():
 class TokenVerdictTool(BaseTool):
     name: str = "token_verdict"
     description: str = (
-        "Pre-trade safety check for a Base (eip155:8453) ERC-20 token before buying "
-        "or approving it. Returns a SAFE / CAUTION / AVOID / UNKNOWN verdict with "
-        "confidence, the reasons behind it, and a recommended max position size "
-        "(honeypot, sell-tax, owner powers, exit-liquidity, B20 seize/freeze). "
-        "Powered by x402 Bazaar: $0.03 USDC/call over x402, or 1 free call/day per IP."
+        "Pre-trade safety check for a Base, Arbitrum or Solana token before buying "
+        "or approving it. Pass chain='base'|'arbitrum'|'solana' (default base; a "
+        "base58 token implies solana). Returns a SAFE / CAUTION / AVOID / UNKNOWN "
+        "verdict with confidence, the reasons, and a recommended max position size "
+        "(honeypot, sell-tax, owner/mint/freeze powers, LP-lock, holder "
+        "concentration, B20 seize/freeze). x402 Bazaar: $0.03 USDC/call over x402 "
+        "(settles on Base), or 1 free call/day per IP."
     )
     args_schema: Type[BaseModel] = TokenVerdictInput
 
-    def _run(self, address: str, amount_usd: Optional[float] = None) -> dict:
-        params: dict = {"address": address}
+    def _run(self, address: str, chain: Optional[str] = None, amount_usd: Optional[float] = None) -> dict:
+        c = chain or ("base" if address.startswith("0x") else "solana")
+        endpoint, param = CHAIN_ENDPOINTS.get(c, CHAIN_ENDPOINTS["base"])
+        url = f"{BASE_URL}/{endpoint}"
+        params: dict = {param: address}
         if amount_usd is not None:
             params["amountUsd"] = amount_usd
 
@@ -73,10 +90,10 @@ class TokenVerdictTool(BaseTool):
         try:
             if session is not None:
                 with session as s:
-                    r = s.get(TOKEN_VERDICT_URL, params=params, timeout=40)
+                    r = s.get(url, params=params, timeout=40)
             else:
                 params["free"] = "1"
-                r = requests.get(TOKEN_VERDICT_URL, params=params, timeout=40)
+                r = requests.get(url, params=params, timeout=40)
         except Exception as e:
             return {"error": "request_failed", "message": str(e)}
 
