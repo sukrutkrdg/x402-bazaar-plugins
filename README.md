@@ -10,6 +10,7 @@ call over [x402](https://x402.org) or via a free daily call.
 import { isSafeToTrade } from "x402-bazaar-verdict";
 if (!(await isSafeToTrade(token))) return "🚫 Failed safety check";
 ```
+Runnable example: a [Telegram trading bot that gates buys](./examples/telegram-safety-gate).
 
 **Agent frameworks:**
 

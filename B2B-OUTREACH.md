@@ -21,6 +21,10 @@ hundreds of recurring calls/day.
   Solana Agent Kit), MCP (`npx x402-bazaar-mcp`), or plain REST
   (`GET /api/x402/token-verdict?address=…&free=1`).
 
+**Working reference to fork:** [`examples/telegram-safety-gate`](./examples/telegram-safety-gate)
+— a runnable Telegram trading bot that gates `/buy` with the one-line check. Point
+partners at it: "here's the whole integration, fork it."
+
 ## Targets (where every user makes trades)
 1. **Telegram trading bots** (Base/Solana Maestro/Banana/Trojan equivalents) — the
    "🛡️ safety check" shown before a buy. ← highest fit (plain Node, buy flow).

@@ -1,0 +1,12 @@
+{
+  "name": "telegram-safety-gate",
+  "version": "1.0.0",
+  "description": "Reference Telegram trading-bot that gates buys with an x402 Bazaar safety check.",
+  "type": "module",
+  "private": true,
+  "scripts": { "start": "node bot.js" },
+  "dependencies": {
+    "grammy": "^1.30.0",
+    "x402-bazaar-verdict": "^0.1.0"
+  }
+}
