@@ -4,11 +4,13 @@ A [Solana Agent Kit](https://github.com/sendaifun/solana-agent-kit) (SendAI) plu
 for [x402 Bazaar](https://402.com.tr) — a **pre-trade token safety verdict** for any
 Solana SPL token.
 
-The `TOKEN_VERDICT` action returns a **SAFE / CAUTION / AVOID / UNKNOWN** verdict with
-the reasons and a recommended max position size — mint & freeze authority (the Solana
-seize/freeze analog), Token-2022 extensions (permanent-delegate seize, transfer-hook
-honeypot, non-transferable, frozen-by-default), Jupiter sellability, and RugCheck
-LP-lock + concentration. Uses the free daily tier (1 call/day per IP); no wallet needed.
+Two LLM actions — **TOKEN_VERDICT** (SAFE / CAUTION / AVOID) and **PRE_TRADE_GATE**
+(GO / HOLD / STOP) — plus programmatic methods for the whole suite: `tokenVerdict`,
+`preTradeGate`, `tokenRisk` (RugCheck score), `sellability` (honeypot), `lpCheck`
+(LP-lock), `holderConcentration` (top-10 %), `price` and `liquidity`. Covers mint &
+freeze authority (the Solana seize/freeze analog), Token-2022 seize/honeypot
+extensions, Jupiter sellability, RugCheck LP-lock + concentration, and DEX price/depth.
+Uses the free daily tier (1 call/day per IP); no wallet needed.
 
 ## Install
 

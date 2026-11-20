@@ -1,22 +1,36 @@
 {
   "name": "solana-agent-kit-x402bazaar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Solana Agent Kit (SendAI) plugin for x402 Bazaar — pre-trade SPL token-verdict (SAFE/CAUTION/AVOID) for any Solana token.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
-    "solana-agent-kit", "sendai", "solana", "x402", "spl", "token-safety",
-    "honeypot", "rug-check", "token-verdict", "ai-agents"
+    "solana-agent-kit",
+    "sendai",
+    "solana",
+    "x402",
+    "spl",
+    "token-safety",
+    "honeypot",
+    "rug-check",
+    "token-verdict",
+    "ai-agents"
   ],
   "homepage": "https://402.com.tr",
   "repository": {
