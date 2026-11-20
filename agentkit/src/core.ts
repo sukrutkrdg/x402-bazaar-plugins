@@ -8,14 +8,27 @@
  */
 import { z } from "zod";
 
-export const TOKEN_VERDICT_URL = "https://402.com.tr/api/x402/token-verdict";
+export const BASE_URL = "https://402.com.tr/api/x402";
 export const USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
 export const BASE_CHAIN = "eip155:8453";
+
+/** token-verdict endpoint + token param name, per chain. All settle in USDC on Base. */
+export const CHAIN_ENDPOINTS = {
+  base: { endpoint: "token-verdict", param: "address" },
+  arbitrum: { endpoint: "arb-token-verdict", param: "address" },
+  solana: { endpoint: "sol-token-verdict", param: "mint" },
+} as const;
+/** Back-compat for importers of the old single URL. */
+export const TOKEN_VERDICT_URL = `${BASE_URL}/token-verdict`;
 
 export const TokenVerdictSchema = z.object({
   address: z
     .string()
-    .regex(/^0x[a-fA-F0-9]{40}$/, "Base ERC-20 token address (0x + 40 hex chars)"),
+    .regex(/^(0x[a-fA-F0-9]{40}|[1-9A-HJ-NP-Za-km-z]{32,44})$/, "A Base/Arbitrum 0x… token address or a Solana base58 mint"),
+  chain: z
+    .enum(["base", "arbitrum", "solana"])
+    .optional()
+    .describe("Which chain the token is on. Default base; a base58 token implies solana."),
   amountUsd: z
     .number()
     .positive()
@@ -69,16 +82,21 @@ export async function getTokenVerdict(
   opts: X402BazaarOptions = {},
 ): Promise<string> {
   const parsed = TokenVerdictSchema.parse(args);
-  const qs = new URLSearchParams({ address: parsed.address });
+  // Default base; a base58 (non-0x) token implies Solana.
+  const chain = parsed.chain ?? (parsed.address.startsWith("0x") ? "base" : "solana");
+  const { endpoint, param } = CHAIN_ENDPOINTS[chain];
+  const url = `${BASE_URL}/${endpoint}`;
+  const qs = new URLSearchParams({ [param]: parsed.address });
   if (parsed.amountUsd != null) qs.set("amountUsd", String(parsed.amountUsd));
 
+  // Every chain's endpoint accepts USDC on Base, so the EVM payer covers all three.
   const paidFetch = await buildPaidFetch(opts);
   let res: Response;
   if (paidFetch) {
-    res = await paidFetch(`${TOKEN_VERDICT_URL}?${qs.toString()}`, { method: "GET" });
+    res = await paidFetch(`${url}?${qs.toString()}`, { method: "GET" });
   } else {
     qs.set("free", "1");
-    res = await fetch(`${TOKEN_VERDICT_URL}?${qs.toString()}`, { method: "GET" });
+    res = await fetch(`${url}?${qs.toString()}`, { method: "GET" });
   }
 
   if (res.status === 402) {

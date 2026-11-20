@@ -1,23 +1,38 @@
 {
   "name": "x402-bazaar-agentkit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Coinbase AgentKit action provider for x402 Bazaar — pre-trade token-verdict (SAFE/CAUTION/AVOID) for any Base token, paid per call over x402.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" }
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "smoke": "node test/smoke.mjs",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
-    "x402", "agentkit", "coinbase", "base", "token-safety", "honeypot",
-    "rug-check", "token-verdict", "ai-agents", "usdc", "pre-trade"
+    "x402",
+    "agentkit",
+    "coinbase",
+    "base",
+    "token-safety",
+    "honeypot",
+    "rug-check",
+    "token-verdict",
+    "ai-agents",
+    "usdc",
+    "pre-trade"
   ],
   "homepage": "https://402.com.tr",
   "repository": {
@@ -35,10 +50,18 @@
     "viem": "^2.0.0"
   },
   "peerDependenciesMeta": {
-    "@x402/fetch": { "optional": true },
-    "@x402/core": { "optional": true },
-    "@x402/evm": { "optional": true },
-    "viem": { "optional": true }
+    "@x402/fetch": {
+      "optional": true
+    },
+    "@x402/core": {
+      "optional": true
+    },
+    "@x402/evm": {
+      "optional": true
+    },
+    "viem": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@coinbase/agentkit": "^0.10.4",

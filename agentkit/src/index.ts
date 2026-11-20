@@ -25,10 +25,12 @@ export class X402BazaarActionProvider extends ActionProvider<WalletProvider> {
   @CreateAction({
     name: "token_verdict_check",
     description:
-      "Pre-trade safety check for a Base (eip155:8453) ERC-20 token before buying or approving it. " +
+      "Pre-trade safety check for a Base, Arbitrum or Solana token before buying or approving it. " +
+      "Pass chain='base'|'arbitrum'|'solana' (default base; a base58 token implies Solana). " +
       "Returns a SAFE / CAUTION / AVOID / UNKNOWN verdict with confidence, the reasons behind it, and a " +
-      "recommended max position size — covering honeypot, sell-tax, owner powers, exit-liquidity and B20 " +
-      "seize/freeze. Powered by x402 Bazaar: $0.03 USDC/call over x402, or 1 free call/day per IP.",
+      "recommended max position size — covering honeypot, sell-tax, owner/mint/freeze powers, LP-lock, " +
+      "holder concentration and B20 seize/freeze. Powered by x402 Bazaar: $0.03 USDC/call over x402 " +
+      "(settles on Base for any chain), or 1 free call/day per IP.",
     schema: TokenVerdictSchema,
   })
   async tokenVerdictCheck(_walletProvider: WalletProvider, args: TokenVerdictArgs): Promise<string> {
