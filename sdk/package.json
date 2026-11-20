@@ -1,0 +1,14 @@
+{
+  "name": "x402-bazaar-verdict",
+  "version": "0.1.0",
+  "description": "One-line pre-trade safety gate for trading bots — SAFE/CAUTION/AVOID for any Base, Solana or Arbitrum token. Free daily tier, zero deps.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "files": ["dist", "README.md"],
+  "scripts": { "build": "tsc", "prepublishOnly": "npm run build" },
+  "keywords": ["x402", "token-safety", "honeypot", "rug-check", "pre-trade", "base", "solana", "arbitrum", "trading-bot", "token-verdict"],
+  "license": "MIT",
+  "devDependencies": { "typescript": "^5.5.0" }
+}
